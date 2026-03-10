@@ -1,0 +1,49 @@
+[project]
+name = "finbook"
+version = "0.1.0"
+description = "OpenClaw 开源财务技能包 - 中小企业自托管财务系统"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "AGPL-3.0" }
+authors = [{ name = "Yanbin Hu", email = "yanbin.hu@example.com" }]
+keywords = ["openclaw", "financial", "accounting", "telegram", "beancount", "sme", "open-source"]
+
+dependencies = [
+    "openclaw>=2026.3.0",
+    "beancount>=3.0.0",
+    "pandas>=2.0.0",
+    "pyyaml>=6.0",
+    "sqlite3>=0.0.0",
+    "loguru>=0.7.0",
+    "requests>=2.31.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "black>=23.0.0",
+    "ruff>=0.1.0",
+]
+ocr = [
+    "aliyun-ocr>=1.0.0",
+    "tencent-ocr>=1.0.0",
+]
+
+[project.scripts]
+finbook = "finbook.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/finbook"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W"]
+ignore = ["E501"]
