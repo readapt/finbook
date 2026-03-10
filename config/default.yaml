@@ -1,0 +1,77 @@
+# FinBook 默认配置
+
+# 系统配置
+system:
+  name: "FinBook"
+  version: "0.1.0"
+  environment: development  # development, production
+
+# 存储配置
+storage:
+  base_path: "./storage"
+  beancount_path: "./storage/ledger.beancount"
+  database_path: "./storage/finance.db"
+  invoices_path: "./storage/invoices"
+  backups_path: "./storage/backups"
+  logs_path: "./storage/logs"
+
+# 数据库配置
+database:
+  type: sqlite  # sqlite 或 postgres
+  sqlite:
+    path: "./storage/finance.db"
+  postgres:
+    host: localhost
+    port: 5432
+    database: finbook
+    username: finbook
+    password: "${DB_PASSWORD}"
+
+# 备份配置
+backup:
+  enabled: true
+  frequency: "daily"  # daily, weekly, monthly
+  retention_days: 3650  # 10 年
+  verify_restore: true
+
+# 日志配置
+logging:
+  level: info  # debug, info, warn, error
+  format: json  # json, text
+  output: "./storage/logs/finbook.log"
+  max_size_mb: 100
+  backup_count: 30
+
+# OCR 配置
+ocr:
+  # 用户自选 OCR 服务
+  provider: user_choice  # aliyun, tencent, baidu, paddle, user_choice
+  aliyun:
+    api_key: "${ALIYUN_OCR_KEY}"
+    api_secret: "${ALIYUN_OCR_SECRET}"
+  tencent:
+    api_key: "${TENCENT_OCR_KEY}"
+    api_secret: "${TENCENT_OCR_SECRET}"
+  baidu:
+    api_key: "${BAIDU_OCR_KEY}"
+    api_secret: "${BAIDU_OCR_SECRET}"
+  paddle:
+    model_path: "./models/paddle"
+
+# Beancount 配置
+beancount:
+  ledger_path: "./storage/ledger.beancount"
+  default_currency: CNY
+  fiscal_year_start: "01-01"
+
+# 合规配置
+compliance:
+  # 凭证编号规则
+  voucher_prefix: "VCH"
+  voucher_date_format: "%Y%m%d"
+  voucher_sequence_length: 6
+  
+  # 审计日志
+  audit_log:
+    enabled: true
+    retention_days: 3650  # 10 年
